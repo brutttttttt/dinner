@@ -18,7 +18,8 @@ public class Test {
     }
 
     @RequestMapping("/test2")
-    public @ResponseBody User testJson(@RequestParam(value="name", required=false) String name) {
-        return new User("test","troldfgo");
+    public @ResponseBody
+    User testJson(@RequestParam(value="name", required=false) String name) {
+        return new User("test","dsf","troldfgo");
     }
 }
