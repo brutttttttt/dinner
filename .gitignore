@@ -2,6 +2,6 @@
 .gradle
 build
 .gitignore
-denner.iml
+dinner.iml
 src/main/resources/static/node_modules
 src/main/resources/static/typings
