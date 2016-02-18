@@ -19,16 +19,16 @@ public class User {
     private String email;
 
     @Column(name="password")
-    private String hashPassword;
+    private String password;
 
     public User(){
 
     }
 
-    public User(String login, String email, String hashPassword) {
+    public User(String login, String email, String password) {
         this.login = login;
         this.email = email;
-        this.hashPassword = hashPassword;
+        this.password = password;
     }
 
     public String getLogin() {
@@ -47,11 +47,11 @@ public class User {
         this.email = email;
     }
 
-    public String getHashPassword() {
-        return hashPassword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setHashPassword(String hashPassword) {
-        this.hashPassword = hashPassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
