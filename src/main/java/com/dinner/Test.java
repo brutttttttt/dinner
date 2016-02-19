@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class Test {
 
-    @RequestMapping("/index")
+    /*@RequestMapping("/index")
     public String index(@RequestParam(value="name", required=false, defaultValue="World") String name, Model model) {
         model.addAttribute("name", name);
         return "index";
-    }
+    }*/
 
     @RequestMapping("/test2")
     public @ResponseBody

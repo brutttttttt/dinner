@@ -1,16 +1,20 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html>
+    <head>
+        <base href="/">
 
-    <head th:fragment="head">
         <title>Dinner</title>
+
+        <!link rel="stylesheet" type="text/css" href="/node_modules/bootstrap/dist/css/bootstrap.css"-->
+
         <script src="node_modules/es6-shim/es6-shim.min.js"></script>
         <script src="node_modules/systemjs/dist/system-polyfills.js"></script>
-
         <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
         <script src="node_modules/systemjs/dist/system.src.js"></script>
         <script src="node_modules/rxjs/bundles/Rx.js"></script>
         <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
+        <script src="node_modules/angular2/bundles/router.dev.js"></script>
+        <script src="node_modules/angular2/bundles/http.dev.js"></script>
 
         <!-- 2. Configure SystemJS -->
         <script>
@@ -22,17 +26,19 @@
                     }
                 }
             });
+
+            /*System.config({
+                defaultJSExtensions: true,
+                map: {
+                    "angular2-jwt": "node_modules/angular2-jwt"
+                }
+            });*/
+
             System.import('app/main')
                     .then(null, console.error.bind(console));
         </script>
     </head>
-
-    <div th:fragment="header">
-        Header
-    </div>
-
-    <div th:fragment="footer">
-        Footer
-    </div>
-
+    <body>
+       <my-app>Loading...</my-app>
+    </body>
 </html>

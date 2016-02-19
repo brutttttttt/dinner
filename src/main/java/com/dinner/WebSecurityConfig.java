@@ -23,7 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+      /*  http
                 .authorizeRequests()
                 .antMatchers("/", "/home").permitAll()
                 .anyRequest().authenticated()
@@ -33,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .logout()
-                .permitAll();
+                .permitAll();*/
     }
 
     @Autowired
@@ -48,7 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers("/app/**","/node_modules/**","/resources/**","/resources/static/**","/static/**");
+                .antMatchers("/app/**","/node_modules/**","/resources/**","/resources/static/**","/static/**","/templates/**");
     }
 
     @Bean
