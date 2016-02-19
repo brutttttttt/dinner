@@ -6,7 +6,7 @@ import { Http, Headers } from 'angular2/http';
     selector: 'login',
 })
 @View({
-    templateUrl: '../login.html'
+    templateUrl: 'templates/login.html'
 })
 export class Login {
     constructor(public router: Router) {
