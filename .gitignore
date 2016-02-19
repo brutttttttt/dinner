@@ -1,7 +1,9 @@
 .idea
 .gradle
+gradle
 build
 .gitignore
 dinner.iml
+.iml
 src/main/resources/static/node_modules
 src/main/resources/static/typings
