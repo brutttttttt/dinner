@@ -1,11 +1,12 @@
 package com.dinner.impl;
 
 import com.dinner.dao.UsersDao;
-import com.dinner.models.User;
+import com.dinner.models.UserDto;
 import com.dinner.models.UserRoleEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,22 +18,17 @@ import java.util.Set;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-
-    private final UsersDao usersDao;
-
     @Autowired
-    public UserDetailsServiceImpl(UsersDao usersDao) {
-        this.usersDao = usersDao;
-    }
+    private UsersDao usersDao;
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
 
-        User user = usersDao.findOne(login);
+        UserDto user = usersDao.findOne(login);
         Set<GrantedAuthority> roles = new HashSet();
         roles.add(new SimpleGrantedAuthority(UserRoleEnum.USER.name()));
 
-        UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), roles);
+        User userDetails = new User(user.getLogin(), user.getPassword(), roles);
 
         return userDetails;
     }

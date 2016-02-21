@@ -3,12 +3,15 @@ package com.dinner.controllers;
 import com.dinner.dao.UsersDao;
 import com.dinner.models.AuthenticationToken;
 import com.dinner.models.UserDto;
+import com.dinner.security.TokenAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
@@ -18,9 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,28 +31,26 @@ import java.util.Map;
 @Controller
 public class AuthenticationController {
 
-    private final UsersDao usersDao;
-
     @Autowired
-    public MainController(UsersDao usersDao) {
-        this.usersDao = usersDao;
-    }
+    private AuthenticationManager authenticationManager;
+    @Autowired
+    private UsersDao usersDao;
+    @Autowired
+    private UserDetailsService userDetailsService;
+    @Autowired
+    private TokenAuthenticationService jwtToken;
 
    /* @Autowired
-    private UserDetailsService UserDetailsService;
-*/
-    private final AuthenticationManager authenticationManager;
-    private final UserDetailsService userDetailsService;
-
-    @Autowired
-    public AuthenticationController(AuthenticationManager am, UserDetailsService userDetailsService) {
+    public AuthenticationController(AuthenticationManager am, UserDetailsService userDetailsService, UsersDao usersDao, TokenAuthenticationService jwtToken) {
         this.authenticationManager = am;
         this.userDetailsService = userDetailsService;
-    }
+        this.usersDao = usersDao;
+        this.jwtToken = jwtToken;
+    }*/
 
-    @RequestMapping("/create")
+    @RequestMapping(value = "/create", method = { RequestMethod.POST })
     public @ResponseBody
-    UserDto create(@RequestParam(value="login") String login,
+    UserDto create(@RequestParam(value="username") String login,
                    @RequestParam(value="email") String email,
                    @RequestParam(value="password") String password) {
 
@@ -61,16 +60,14 @@ public class AuthenticationController {
 
     @RequestMapping(value = "/auth", method = { RequestMethod.POST })
     public @ResponseBody
-    AuthenticationToken login(@RequestParam(value="login") String username,
-                 @RequestParam(value="password") String password,
-                 HttpServletRequest request) {
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
-        Authentication authentication = this.authenticationManager.authenticate(token);
+    AuthenticationToken login(@RequestParam(value="username") String username,
+                              @RequestParam(value="password") String password,
+                              HttpServletResponse response) {
+        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password);
+        Authentication authentication = this.authenticationManager.authenticate(authToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        HttpSession session = request.getSession(true);
-        session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
-
-        UserDetails details = this.userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+        UserDetails details = this.userDetailsService.loadUserByUsername(username);
+        String jwt = jwtToken.addAuthentication(response, (User) details);
 
         final Map<String, Boolean> roles = new HashMap<String, Boolean>();
 
@@ -78,7 +75,6 @@ public class AuthenticationController {
             roles.put(authority.toString(), Boolean.TRUE);
         }
 
-        return new AuthenticationToken(details.getUsername(), roles, session.getId());
+        return new AuthenticationToken(details.getUsername(), roles, jwt);
     }
-
 }

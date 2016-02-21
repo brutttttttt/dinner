@@ -1,6 +1,6 @@
 package com.dinner.dao;
 
-import com.dinner.models.User;
+import com.dinner.models.UserDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,6 +11,6 @@ import javax.persistence.Table;
  */
 @Repository
 @Table(name = "users")
-public interface UsersDao extends JpaRepository<User, String> {
+public interface UsersDao extends JpaRepository<UserDto, String> {
 
 }
