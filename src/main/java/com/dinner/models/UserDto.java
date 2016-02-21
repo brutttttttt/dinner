@@ -10,7 +10,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "users")
-public class User {
+public class UserDto {
     @Id
     @Column(name="login")
     private String login;
@@ -21,11 +21,11 @@ public class User {
     @Column(name="password")
     private String password;
 
-    public User(){
+    public UserDto(){
 
     }
 
-    public User(String login, String email, String password) {
+    public UserDto(String login, String email, String password) {
         this.login = login;
         this.email = email;
         this.password = password;
