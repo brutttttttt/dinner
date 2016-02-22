@@ -16,7 +16,7 @@ export class Login {
     login(event, username, password) {
         event.preventDefault();
         var body = 'username='+username+'&password='+password; //JSON.stringify({ 'username': username, 'password':password });
-        this.http.post('http://localhost:8080/auth', body, { headers: contentHeaders})
+        this.http.post('http://localhost:8081/auth', body, { headers: contentHeaders})
             .subscribe(
                 response => {
                     localStorage.setItem('jwt', response.json().token);
@@ -37,7 +37,7 @@ export class Login {
         head.append('Accept', 'application/json');
         head.append('Content-Type', 'application/x-www-form-urlencoded');
 
-        this.http.post('http://localhost:8080/create', body, { headers: head})
+        this.http.post('http://localhost:8081/create', body, { headers: head})
             .subscribe(
                 response => {
                     alert('create');

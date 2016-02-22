@@ -2,6 +2,7 @@ package com.dinner;
 
 
 import com.dinner.filter.StatelessAuthenticationFilter;
+import com.dinner.filter.StatelessLoginFilter;
 import com.dinner.security.TokenAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
@@ -27,25 +28,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private StatelessAuthenticationFilter statelessAuthenticationFilter;
 
-    /*@Autowired
-    public WebSecurityConfig(UserDetailsService userDetailsService, TokenAuthenticationService tokenAuthenticationService) {
-        this.userDetailsService = userDetailsService;
-        this.tokenAuthenticationService = tokenAuthenticationService;
-    }*/
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.httpBasic().disable()
                 .authorizeRequests()
-                    .antMatchers("/", "/login", "/home", "/auth").permitAll()
+                    .antMatchers("/", "/login", "/auth", "/signup", "/home").permitAll()
                     .anyRequest().authenticated()
                     .and()
-                .addFilterBefore(statelessAuthenticationFilter,
-                     UsernamePasswordAuthenticationFilter.class);
-                /*.csrf()
-                    .csrfTokenRepository(csrfTokenRepository()).and()
-                    .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);*/
+                .addFilterBefore(statelessAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override

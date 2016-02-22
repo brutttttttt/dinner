@@ -1,10 +1,13 @@
 package com.dinner.controllers;
 
 import com.dinner.dao.UsersDao;
+import com.dinner.impl.UserDetailsServiceImpl;
 import com.dinner.models.AuthenticationToken;
 import com.dinner.models.UserDto;
 import com.dinner.security.TokenAuthenticationService;
+import com.dinner.security.UserAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,13 +17,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,17 +38,9 @@ public class AuthenticationController {
     @Autowired
     private UsersDao usersDao;
     @Autowired
-    private UserDetailsService userDetailsService;
+    private UserDetailsServiceImpl userDetailsService;
     @Autowired
     private TokenAuthenticationService jwtToken;
-
-   /* @Autowired
-    public AuthenticationController(AuthenticationManager am, UserDetailsService userDetailsService, UsersDao usersDao, TokenAuthenticationService jwtToken) {
-        this.authenticationManager = am;
-        this.userDetailsService = userDetailsService;
-        this.usersDao = usersDao;
-        this.jwtToken = jwtToken;
-    }*/
 
     @RequestMapping(value = "/create", method = { RequestMethod.POST })
     public @ResponseBody
@@ -66,15 +60,24 @@ public class AuthenticationController {
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password);
         Authentication authentication = this.authenticationManager.authenticate(authToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        UserDetails details = this.userDetailsService.loadUserByUsername(username);
-        String jwt = jwtToken.addAuthentication(response, (User) details);
+        User user = this.userDetailsService.loadUserByUsername(username);
+        String jwt = jwtToken.addAuthentication(response, new UserAuthentication(user));
 
         final Map<String, Boolean> roles = new HashMap<String, Boolean>();
 
-        for (GrantedAuthority authority : details.getAuthorities()) {
+        for (GrantedAuthority authority : user.getAuthorities()) {
             roles.put(authority.toString(), Boolean.TRUE);
         }
 
-        return new AuthenticationToken(details.getUsername(), roles, jwt);
+        return new AuthenticationToken(user.getUsername(), roles, jwt);
+    }
+    @RequestMapping(value = "/logout", method = { RequestMethod.GET })
+    @ResponseStatus(HttpStatus.OK)
+    public void logout(HttpServletRequest request, HttpServletResponse response){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null){
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+        SecurityContextHolder.getContext().setAuthentication(null);
     }
 }

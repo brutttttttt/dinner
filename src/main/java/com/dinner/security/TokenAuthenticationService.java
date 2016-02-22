@@ -21,8 +21,8 @@ public class TokenAuthenticationService {
     @Autowired
     private TokenHandler tokenHandler;
 
-    public String addAuthentication(HttpServletResponse response, User user) {
-        String token = tokenHandler.createTokenForUser(user);
+    public String addAuthentication(HttpServletResponse response, UserAuthentication authentication) {
+        String token = tokenHandler.createTokenForUser(authentication.getDetails());
         response.addHeader(AUTH_HEADER_NAME, token);
         return token;
     }

@@ -22,7 +22,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private UsersDao usersDao;
 
     @Override
-    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+    public User loadUserByUsername(String login) throws UsernameNotFoundException {
 
         UserDto user = usersDao.findOne(login);
         Set<GrantedAuthority> roles = new HashSet();
