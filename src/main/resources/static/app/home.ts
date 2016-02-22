@@ -1,13 +1,15 @@
 import {Component,View} from 'angular2/core';
 import { Http, Headers } from 'angular2/http';
 import { Router, RouterLink } from 'angular2/router';
+import {LoginModal} from './loginModal';
 
 @Component({
     selector: 'my-app',
 })
 
 @View({
-    templateUrl: 'templates/home.html'
+    templateUrl: 'templates/home.html',
+    directives: [ LoginModal ]
 })
 export class Home {
 
