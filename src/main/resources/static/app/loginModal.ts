@@ -10,9 +10,8 @@ import {Component,View,ElementRef} from 'angular2/core';
 
 export class LoginModal {
 
-   openModal(){
+    openModal(){
 
-   }
-
+    }
 }
 

@@ -16,7 +16,7 @@
         <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
         <script src="node_modules/angular2/bundles/router.dev.js"></script>
         <script src="node_modules/angular2/bundles/http.dev.js"></script>
-        <script src="app/jquery-1.12.0.min.js"></script>
+        <script src="app/libs/jquery-1.12.0.min.js"></script>
         <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
 
         <!-- 2. Configure SystemJS -->
@@ -29,13 +29,6 @@
                 }
             }
         });
-
-        /*System.config({
-         defaultJSExtensions: true,
-         map: {
-         "angular2-jwt": "node_modules/angular2-jwt"
-         }
-         });*/
 
         System.import('app/main')
                 .then(null, console.error.bind(console));
