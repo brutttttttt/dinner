@@ -1,12 +1,11 @@
-import {Component,View,ElementRef} from 'angular2/core';
+import {Component} from 'angular2/core';
 
 @Component({
     selector: 'login-modal',
+    templateUrl: 'templates/loginModal.html',
+    styleUrls: ['css/loginModal.css']
 })
 
-@View({
-    templateUrl: 'templates/loginModal.html',
-})
 
 export class LoginModal {
 

@@ -10,7 +10,7 @@ import {Signup} from './signup';
     selector: 'my-app'
 })
 @View({
-    template: '<div class="container"><router-outlet></router-outlet></div>',
+    template: '<router-outlet></router-outlet>',
     directives: [ LoggedInRouterOutlet ]
 })
 @RouteConfig([

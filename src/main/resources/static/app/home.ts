@@ -2,6 +2,7 @@ import {Component,View} from 'angular2/core';
 import { Http, Headers } from 'angular2/http';
 import { Router, RouterLink } from 'angular2/router';
 import {LoginModal} from './loginModal';
+import {Head} from './head';
 
 @Component({
     selector: 'my-app',
@@ -9,7 +10,7 @@ import {LoginModal} from './loginModal';
 
 @View({
     templateUrl: 'templates/home.html',
-    directives: [ LoginModal ]
+    directives: [ LoginModal, Head ]
 })
 export class Home {
 
@@ -18,7 +19,7 @@ export class Home {
 
     logout(){
 
-        this.http.get('http://localhost:8081/logout')
+        this.http.get('http://localhost:8080/logout')
             .subscribe(
                 response => {
                     //localStorage.removeItem('jwt');

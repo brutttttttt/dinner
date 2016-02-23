@@ -40,7 +40,7 @@ System.register(['angular2/core', 'angular2/router', './LoggedInOutlet', './home
                         selector: 'my-app'
                     }),
                     core_1.View({
-                        template: '<div class="container"><router-outlet></router-outlet></div>',
+                        template: '<router-outlet></router-outlet>',
                         directives: [LoggedInOutlet_1.LoggedInRouterOutlet]
                     }),
                     router_1.RouteConfig([

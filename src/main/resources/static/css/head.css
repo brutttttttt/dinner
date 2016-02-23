@@ -1,0 +1,51 @@
+
+.header-wrapper {
+    padding-top: 20px;
+    width: 1180px;
+    margin: 0 auto;
+}
+
+.top-main-header {
+    width: 100%;
+    position: fixed;
+    z-index: 19;
+    height: 70px;
+    background-color: #39c2d7;
+}
+
+.profile_header_block {
+    height: 70px;
+    margin: -20px 0 0 0;
+    border-right: 1px solid #39c2d7;
+    float: right;
+}
+
+.profile_header_block a {
+    text-decoration: none;
+}
+
+.profile_header_block:hover {
+    background-color: #88dae7;
+}
+
+.user {
+    display: inline-block;
+    line-height: 70px;
+    padding: 0 20px;
+    float: left;
+    font-size: 14px
+}
+
+.profile_header_block .glyphicon-user{
+    top: 2px;
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+.d_underline{
+    border-bottom: 1px dotted;
+}
+
+a{
+    cursor: pointer;
+}
