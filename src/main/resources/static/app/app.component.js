@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './LoggedInOutlet', './home', './login', './signup'], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', './LoggedInOutlet', './home', './signup'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/router', './LoggedInOutlet', './home
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, LoggedInOutlet_1, home_1, login_1, signup_1;
+    var core_1, router_1, LoggedInOutlet_1, home_1, signup_1;
     var AppComponent;
     return {
         setters:[
@@ -23,9 +23,6 @@ System.register(['angular2/core', 'angular2/router', './LoggedInOutlet', './home
             },
             function (home_1_1) {
                 home_1 = home_1_1;
-            },
-            function (login_1_1) {
-                login_1 = login_1_1;
             },
             function (signup_1_1) {
                 signup_1 = signup_1_1;
@@ -46,7 +43,7 @@ System.register(['angular2/core', 'angular2/router', './LoggedInOutlet', './home
                     router_1.RouteConfig([
                         { path: '/', redirectTo: ['/Home'] },
                         { path: '/home', component: home_1.Home, as: 'Home' },
-                        { path: '/login', component: login_1.Login, as: 'Login' },
+                        // { path: '/login', component: Login, as: 'Login' },
                         { path: '/signup', component: signup_1.Signup, as: 'Signup' }
                     ]), 
                     __metadata('design:paramtypes', [router_1.Router])

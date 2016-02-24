@@ -3,7 +3,7 @@ import {Location, RouteConfig, RouterLink, Router} from 'angular2/router';
 
 import {LoggedInRouterOutlet} from './LoggedInOutlet';
 import {Home} from './home';
-import {Login} from './login';
+//import {Login} from './login';
 import {Signup} from './signup';
 
 @Component({
@@ -16,7 +16,7 @@ import {Signup} from './signup';
 @RouteConfig([
     { path: '/', redirectTo: ['/Home'] },
     { path: '/home', component: Home, as: 'Home' },
-    { path: '/login', component: Login, as: 'Login' },
+   // { path: '/login', component: Login, as: 'Login' },
     { path: '/signup', component: Signup, as: 'Signup' }
 ])
 
